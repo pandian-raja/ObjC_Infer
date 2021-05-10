@@ -17,8 +17,6 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: Check out repository code
-        uses: actions/checkout@v2
+      - name: infer compile
+      - run:  infer --keep-going --no-xcpretty -- xcodebuild build -scheme TestObjC -workspace TestObjC.xcworkspace -configuration Release 
 
-      - name: List files in the repository
-        run: infer run -- clang -c TestObjC/ViewController.m
