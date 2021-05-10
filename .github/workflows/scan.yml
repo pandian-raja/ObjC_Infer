@@ -1,0 +1,10 @@
+name: GitHub Scan
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: macOS-latest
+    steps:
+      - name: Install Infer Brew Package
+        run: brew install infer
+      - name: List files in the repository
+        run: infer run -- clang -c ./ObjectiveC-CodeQL-Test/ViewController.m
