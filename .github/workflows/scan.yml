@@ -18,5 +18,5 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Infer xcodebuild Test
-        run:  infer --keep-going --no-xcpretty -- xcodebuild build -scheme TestObjC -workspace TestObjC.xcworkspace -configuration Release 
+        run:  infer --keep-going --no-xcpretty -- xcodebuild build -scheme TestObjC -project TestObjC.xcodeproj -configuration Release
 
