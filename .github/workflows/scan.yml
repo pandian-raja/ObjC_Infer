@@ -2,7 +2,7 @@ name: GitHub Scan
 on: [push]
 jobs:
   Explore-GitHub-Actions:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Install Infer Brew Package
         run: brew install infer
