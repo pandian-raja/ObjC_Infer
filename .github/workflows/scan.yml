@@ -4,22 +4,21 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Infer Brew Package
-        run: curl -sSL "https://github.com/facebook/infer/releases/download/v1.1.0/infer-linux64-v1.1.0.tar.xz" 
-      - run: sudo tar -C /opt -xJ && 
-      - run: sudo ln -s "/opt/infer-linux64-v1.1.0/bin/infer" /usr/local/bin/infer
-        
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
-      - name: Infer xcodebuild Test
-        run:  infer --keep-going --no-xcpretty -- xcodebuild build -scheme TestObjC -project TestObjC.xcodeproj -configuration Release
+      - name: Run MobSF Analysis
+        uses: fundacaocerti/mobsf-action@v1.6
+        env:
+          INPUT_FILE_NAME: build/app/outputs/apk/app.apk
+          SCAN_TYPE: apk
+          OUTPUT_FILE_NAME: mobsf-report
 
+      - name: Upload MobSF Analysis PDF Result
+        uses: actions/upload-artifact@v2
+        with:
+          name: mobsf-report.pdf
+          path: mobsf-report.pdf
+
+      - name: Upload MobSF Analysis JSON Result
+        uses: actions/upload-artifact@v2
+        with:
+          name: mobsf-report.json
+          path: mobsf-report.json
